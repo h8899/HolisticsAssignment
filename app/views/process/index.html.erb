@@ -291,6 +291,7 @@
 
   function timeOut(key) {
       time = table[key].getTimeLeft();
+      time = (time < 0) ? 0 : time;
       $('.command').append('<div>' + time / 1000   + '</div>');
   }
 
