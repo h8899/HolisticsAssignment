@@ -20,6 +20,9 @@
 
           console.log(words);
           // Identify the type of command.
+          // words[0] : name of command
+          // for most cases: words[1]: name of key
+          // word[2] onwards : array of values
           switch(words[0]) {
               case "SET":
                   set_string(words[1], words[2]);
@@ -31,11 +34,7 @@
                   length(words[1]);
                   break;
               case "RPUSH":
-                  var len = words.length - 2;
-                  var arr = new Array(len);
-                  for (i = 0; i < len; i ++) {
-                      arr[i] = words[i + 2];
-                  }
+                  arr = words.slice(2);
                   push(words[1], arr);
                   break;
               case "LPOP":
@@ -46,6 +45,25 @@
                   break;
               case "LRANGE":
                   range(words[1], words[2], words[3]);
+                  break;
+              case "SADD":
+                  arr = words.slice(2);
+                  console.log(arr);
+                  set_add(words[1], arr);
+                  break;
+              case "SCARD":
+                  set_card(words[1]);
+                  break;
+              case "SMEMBERS":
+                  set_member(words[1]);
+                  break;
+              case "SREM":
+                  arr = words.slice(2);
+                  set_remove(words[1], arr);
+                  break;
+              case "SINTER":
+                  arr = words.slice(1);
+                  set_intersection(arr);
                   break;
               default:
           }
@@ -129,6 +147,63 @@
               stop: stop
           },
           url: "<%= url_for(controller: 'list_process', action: 'range') %>",
+          dataType: "script"
+      });
+  }
+
+  function set_add(key, arr) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key,
+              arr: arr
+          },
+          url: "<%= url_for(controller: 'set_process', action: 'add') %>",
+          dataType: "script"
+      });
+  }
+
+  function set_card(key) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key
+          },
+          url: "<%= url_for(controller: 'set_process', action: 'card') %>",
+          dataType: "script"
+      });
+  }
+
+  function set_member(key) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key
+          },
+          url: "<%= url_for(controller: 'set_process', action: 'members') %>",
+          dataType: "script"
+      });
+  }
+
+  function set_remove(key, arr) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key,
+              arr: arr
+          },
+          url: "<%= url_for(controller: 'set_process', action: 'remove') %>",
+          dataType: "script"
+      });
+  }
+
+  function set_intersection(arr) {
+      $.ajax({
+          type: "GET",
+          data: {
+              arr: arr
+          },
+          url: "<%= url_for(controller: 'set_process', action: 'intersect') %>",
           dataType: "script"
       });
   }

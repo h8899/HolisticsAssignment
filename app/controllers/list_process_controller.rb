@@ -32,10 +32,6 @@ class ListProcessController < ApplicationController
     start = params[:start]
     stop = params[:stop]
     value = $ListHash[key]
-    @arr = []
-    while start <= stop
-      @arr.push(value[start])
-      start += 1
-    end
+    @arr = value.slice(start, stop - start + 1)
   end
 end
