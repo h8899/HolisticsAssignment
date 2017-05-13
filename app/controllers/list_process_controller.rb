@@ -1,37 +1,35 @@
 class ListProcessController < ApplicationController
-  $ListHash = {}
-
   def length
     @key = params[:key]
-    @length = $ListHash[@key].size
+    @length = $Hash[@key].size
   end
 
   def push
     @key = params[:key]
     @arr = params[:arr]
-    if ($ListHash[@key] == nil)
-      $ListHash[@key] = @arr
+    if ($Hash[@key] == nil)
+      $Hash[@key] = @arr
     else
-      $ListHash[@key] = $ListHash[@key] + @arr
+      $Hash[@key] = $Hash[@key] + @arr
     end
-    @length = $ListHash[@key].size
+    @length = $Hash[@key].size
   end
 
   def left_pop
     @key = params[:key]
-    @value = $ListHash[@key].shift
+    @value = $Hash[@key].shift
   end
 
   def right_pop
     @key = params[:key]
-    @value = $ListHash[@key].pop
+    @value = $Hash[@key].pop
   end
 
   def range
     key = params[:key]
     start = params[:start]
     stop = params[:stop]
-    value = $ListHash[key]
+    value = $Hash[key]
     @arr = value.slice(start, stop - start + 1)
   end
 end

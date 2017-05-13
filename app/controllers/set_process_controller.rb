@@ -1,6 +1,5 @@
 class SetProcessController < ApplicationController
   require 'set'
-  $Hash = {}
 
   def add
     @key = params[:key]
@@ -29,19 +28,19 @@ class SetProcessController < ApplicationController
     @key = params[:key]
     @arr = params[:arr]
     @set = @arr.to_set
-    $SetHash[@key] = $SetHash[@key] | @set
-    $SetHash[@key] = $SetHash[@key] ^ @set
+    $Hash[@key] = $Hash[@key] | @set
+    $Hash[@key] = $Hash[@key] ^ @set
   end
 
   def intersect
     @arr = params[:arr]
     len = @arr.size
     @firstKey = @arr[0]
-    @finalSet = $SetHash[@firstKey]
+    @finalSet = $Hash[@firstKey]
     i = 1
     while i < len
       @currentKey = @arr[i]
-      @currentSet = $SetHash[@currentKey]
+      @currentSet = $Hash[@currentKey]
       @finalSet = @finalSet & @currentSet
       i += 1
     end

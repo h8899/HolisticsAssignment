@@ -1,14 +1,14 @@
 class StringProcessController < ApplicationController
-  $StringHash = {}
+  $Hash = {}
 
   def set_string
     @key = params[:key]
     @value = params[:value]
-    $StringHash[@key] = @value
+    $Hash[@key] = @value
   end
 
   def get_string
     @key = params[:key]
-    @value = $StringHash[@key]
+    @value = $Hash[@key]
   end
 end
