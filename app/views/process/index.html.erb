@@ -1,0 +1,135 @@
+<div class = 'main' >
+  <div class = 'command'>
+  </div>
+</div>
+
+<div>
+  <input id="info" type ='text'>
+  <input id = 'submit' type = 'submit'>
+</div>
+
+
+<script>
+  $(document).on('turbolinks:load', function() {
+      $("#submit").on('click', function() {
+
+          // Get the command, parse it.
+          var value = $("#info").val();
+          $('#info').val("");
+          var words = value.split(" ");
+
+          console.log(words);
+          // Identify the type of command.
+          switch(words[0]) {
+              case "SET":
+                  set_string(words[1], words[2]);
+                  break;
+              case "GET":
+                  get_string(words[1]);
+                  break;
+              case "LLEN":
+                  length(words[1]);
+                  break;
+              case "RPUSH":
+                  var len = words.length - 2;
+                  var arr = new Array(len);
+                  for (i = 0; i < len; i ++) {
+                      arr[i] = words[i + 2];
+                  }
+                  push(words[1], arr);
+                  break;
+              case "LPOP":
+                  left_pop(words[1]);
+                  break;
+              case "RPOP":
+                  right_pop(words[1]);
+                  break;
+              case "LRANGE":
+                  range(words[1], words[2], words[3]);
+                  break;
+              default:
+          }
+      })
+  })
+
+  function set_string(key, value) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key,
+              value: value
+          },
+          url: "<%= url_for(controller: 'string_process', action: 'set_string') %>",
+          dataType: "script"
+      });
+  }
+
+  function get_string(key) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key
+          },
+          url: "<%= url_for(controller: 'string_process', action: 'get_string') %>",
+          dataType: "script"
+      });
+  }
+
+  function length(key) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key
+          },
+          url: "<%= url_for(controller: 'list_process', action: 'length') %>",
+          dataType: "script"
+      });
+  }
+
+  function push(key, arr) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key,
+              arr: arr
+          },
+          url: "<%= url_for(controller: 'list_process', action: 'push') %>",
+          dataType: "script"
+      });
+  }
+
+  function left_pop(key) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key
+          },
+          url: "<%= url_for(controller: 'list_process', action: 'left_pop') %>",
+          dataType: "script"
+      });
+  }
+
+  function right_pop(key) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key
+          },
+          url: "<%= url_for(controller: 'list_process', action: 'right_pop') %>",
+          dataType: "script"
+      });
+  }
+
+  function range(key, start, stop) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key,
+              start: start,
+              stop: stop
+          },
+          url: "<%= url_for(controller: 'list_process', action: 'range') %>",
+          dataType: "script"
+      });
+  }
+</script>

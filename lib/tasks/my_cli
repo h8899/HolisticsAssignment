@@ -1,0 +1,12 @@
+require "thor"
+
+class MyCLI < Thor
+  desc "hello NAME", "say hello to NAME"
+
+  method_option :name, aliases: '-b', type: :string, desc: 'It`s the named passed'
+
+  def hello(name)
+    puts "Hello #{name}"
+  end
+end
+MyCLI.start(ARGV)
