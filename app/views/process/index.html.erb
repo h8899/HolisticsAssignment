@@ -10,7 +10,9 @@
 
 
 <script>
+  var table = {};
   $(document).on('turbolinks:load', function() {
+
       $("#submit").on('click', function() {
 
           // Get the command, parse it.
@@ -48,7 +50,6 @@
                   break;
               case "SADD":
                   arr = words.slice(2);
-                  console.log(arr);
                   set_add(words[1], arr);
                   break;
               case "SCARD":
@@ -65,10 +66,63 @@
                   arr = words.slice(1);
                   set_intersection(arr);
                   break;
+              case "KEYS":
+                  listKeys();
+                  break;
+              case "DEL":
+                  deleteKey(words[1]);
+                  break;
+              case "FLUSHDB":
+                  flush();
+                  break;
+              case "EXPIRE":
+                  key = words[1];
+                  time = words[2];
+                  // delete a key after a given period, store the function in the table
+                  timeObject = timer(function() {deleteKey(key);}, time * 1000);
+                  table[key] = timeObject;
+                  break;
+              case "TTL":
+                  timeOut(words[1]);
+                  break;
               default:
           }
       })
   })
+
+  // This function timer is to help setTimeOut and query the time left.
+  function timer(callback, delay) {
+      var id, started, remaining = delay, running
+
+      this.start = function() {
+          running = true
+          started = new Date()
+          id = setTimeout(callback, remaining)
+      }
+
+      this.pause = function() {
+          running = false
+          clearTimeout(id)
+          remaining -= new Date() - started
+      }
+
+      this.getTimeLeft = function() {
+          if (running) {
+              this.pause()
+              this.start()
+          }
+
+          return remaining
+      }
+
+      this.getStateRunning = function() {
+          return running
+      }
+
+      this.start()
+      return this;
+  }
+
 
   function set_string(key, value) {
       $.ajax({
@@ -207,4 +261,37 @@
           dataType: "script"
       });
   }
+
+  function listKeys() {
+      $.ajax({
+          type: "GET",
+          url: "<%= url_for(controller: 'expire_process', action: 'key') %>",
+          dataType: "script"
+      });
+  }
+
+  function deleteKey(key) {
+      $.ajax({
+          type: "GET",
+          data: {
+              key: key
+          },
+          url: "<%= url_for(controller: 'expire_process', action: 'delete') %>",
+          dataType: "script"
+      });
+  }
+
+  function flush() {
+      $.ajax({
+          type: "GET",
+          url: "<%= url_for(controller: 'expire_process', action: 'flush') %>",
+          dataType: "script"
+      });
+  }
+
+  function timeOut(key) {
+      time = table[key].getTimeLeft();
+      $('.command').append('<div>' + time / 1000   + '</div>');
+  }
+
 </script>

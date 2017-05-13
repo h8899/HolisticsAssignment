@@ -1,5 +1,4 @@
 class StringProcessController < ApplicationController
-  $Hash = {}
 
   def set_string
     @key = params[:key]

@@ -15,4 +15,7 @@ Rails.application.routes.draw do
   get 'set_process/members' => 'set_process#members'
   get 'set_process/remove' => 'set_process#remove'
   get 'set_process/intersect' => 'set_process#intersect'
+  get 'expire_process/key' => 'expire_process#key'
+  get 'expire_process/delete' => 'expire_process#delete'
+  get 'expire_process/flush' => 'expire_process#flush'
 end

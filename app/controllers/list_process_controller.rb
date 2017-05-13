@@ -7,7 +7,10 @@ class ListProcessController < ApplicationController
   def push
     @key = params[:key]
     @arr = params[:arr]
-    if ($Hash[@key] == nil)
+    @temp = $Hash[@key]
+
+    # Check if the key previously store a string or set.
+    if (@temp == nil || @temp.kind_of?(String) || @temp.kind_of?(Set))
       $Hash[@key] = @arr
     else
       $Hash[@key] = $Hash[@key] + @arr

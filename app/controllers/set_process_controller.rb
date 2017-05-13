@@ -5,7 +5,10 @@ class SetProcessController < ApplicationController
     @key = params[:key]
     @arr = params[:arr]
     @set = @arr.to_set
-    if ($Hash[@key] == nil)
+    @temp = $Hash[@key]
+
+    # Check if the key previously stored a list or a string.
+    if (@temp == nil || @temp.kind_of?(Array) || @temp.kind_of?(String))
       $Hash[@key] = @set
     else
       $Hash[@key] = $Hash[@key] | @set
