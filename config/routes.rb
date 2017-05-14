@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   get 'expire_process/key' => 'expire_process#key'
   get 'expire_process/delete' => 'expire_process#delete'
   get 'expire_process/flush' => 'expire_process#flush'
+  get 'save_process/save' => 'save_process#save'
+  get 'save_process/restore' => 'save_process#restore'
 end

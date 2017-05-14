@@ -11,6 +11,7 @@
 
 <script>
   var table = {};
+  var argumentError = 'Incorrect number of arguments';
   $(document).on('turbolinks:load', function() {
 
       $("#submit").on('click', function() {
@@ -27,55 +28,119 @@
           // word[2] onwards : array of values
           switch(words[0]) {
               case "SET":
+                  if (words.length != 3) {
+                      printError(argumentError);
+                      break;
+                  }
                   set_string(words[1], words[2]);
                   break;
               case "GET":
+                  if (words.length != 2) {
+                      printError(argumentError);
+                      break;
+                  }
                   get_string(words[1]);
                   break;
               case "LLEN":
+                  if (words.length != 2) {
+                      printError(argumentError);
+                      break;
+                  }
                   length(words[1]);
                   break;
               case "RPUSH":
+                  if (words.length < 3) {
+                      printError(argumentError);
+                      break;
+                  }
                   arr = words.slice(2);
                   push(words[1], arr);
                   break;
               case "LPOP":
+                  if (words.length != 2) {
+                      printError(argumentError);
+                      break;
+                  }
                   left_pop(words[1]);
                   break;
               case "RPOP":
+                  if (words.length != 2) {
+                      printError(argumentError);
+                      break;
+                  }
                   right_pop(words[1]);
                   break;
               case "LRANGE":
+                  if (words.length != 4) {
+                      printError(argumentError);
+                      break;
+                  }
                   range(words[1], words[2], words[3]);
                   break;
               case "SADD":
+                  if (words.length < 3) {
+                      printError(argumentError);
+                      break;
+                  }
                   arr = words.slice(2);
                   set_add(words[1], arr);
                   break;
               case "SCARD":
+                  if (words.length != 2) {
+                      printError(argumentError);
+                      break;
+                  }
                   set_card(words[1]);
                   break;
               case "SMEMBERS":
+                  if (words.length != 2) {
+                      printError(argumentError);
+                      break;
+                  }
                   set_member(words[1]);
                   break;
               case "SREM":
+                  if (words.length < 3) {
+                      printError(argumentError);
+                      break;
+                  }
                   arr = words.slice(2);
                   set_remove(words[1], arr);
                   break;
               case "SINTER":
+                  if (words.length < 3) {
+                      printError(argumentError);
+                      break;
+                  }
                   arr = words.slice(1);
                   set_intersection(arr);
                   break;
               case "KEYS":
+                  if (words.length != 1) {
+                      printError(argumentError);
+                      break;
+                  }
                   listKeys();
                   break;
               case "DEL":
+                  if (words.length != 2) {
+                      printError(argumentError);
+                      break;
+                  }
                   deleteKey(words[1]);
                   break;
               case "FLUSHDB":
+                  if (words.length != 1) {
+                      printError(argumentError);
+                      break;
+                  }
                   flush();
                   break;
               case "EXPIRE":
+                  if (words.length != 3) {
+                      printError(argumentError);
+                      break;
+                  }
                   key = words[1];
                   time = words[2];
                   // delete a key after a given period, store the function in the table
@@ -83,9 +148,29 @@
                   table[key] = timeObject;
                   break;
               case "TTL":
+                  if (words.length != 2) {
+                      printError(argumentError);
+                      break;
+                  }
                   timeOut(words[1]);
                   break;
+              case "SAVE":
+                  if (words.length != 1) {
+                      printError(argumentError);
+                      break;
+                  }
+                  save();
+                  break;
+              case "RESTORE":
+                  if (words.length != 1) {
+                      printError(argumentError);
+                      break;
+                  }
+                  restore();
+                  break;
               default:
+                  var message = 'This command is not supported';
+                  printError(message);
           }
       })
   })
@@ -295,4 +380,23 @@
       $('.command').append('<div>' + time / 1000   + '</div>');
   }
 
+  function save() {
+      $.ajax({
+          type: "GET",
+          url: "<%= url_for(controller: 'save_process', action: 'save') %>",
+          dataType: "script"
+      });
+  }
+
+  function restore() {
+      $.ajax({
+          type: "GET",
+          url: "<%= url_for(controller: 'save_process', action: 'restore') %>",
+          dataType: "script"
+      });
+  }
+
+  function printError(message) {
+      $('.command').append('<div>' + message   + '</div>');
+  }
 </script>

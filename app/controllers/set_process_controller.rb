@@ -18,7 +18,11 @@ class SetProcessController < ApplicationController
   def card
     @key = params[:key]
     @set = $Hash[@key]
-    @cardinal = @set.size
+    if (@set.kind_of?(Set))
+      @cardinal = @set.size
+    else
+      @cardinal = "This operation must be on set"
+    end
   end
 
   def members
@@ -31,8 +35,11 @@ class SetProcessController < ApplicationController
     @key = params[:key]
     @arr = params[:arr]
     @set = @arr.to_set
-    $Hash[@key] = $Hash[@key] | @set
-    $Hash[@key] = $Hash[@key] ^ @set
+    @currentSet = $Hash[@key]
+    if (@currentSet.kind_of?(Set))
+      $Hash[@key] = (@currentSet | @set) ^ @set
+    end
+
   end
 
   def intersect
