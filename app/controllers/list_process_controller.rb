@@ -29,12 +29,5 @@ class ListProcessController < ApplicationController
   end
 
   def range
-    key = params[:key]
-    start = params[:start]
-    stop = params[:stop]
-    value = $Hash[key]
-    start = start.to_i
-    stop = stop.to_i
-    @arr = value.slice(start, stop - start + 1)
-  end
+
 end

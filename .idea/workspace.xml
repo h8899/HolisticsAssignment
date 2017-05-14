@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="094a57a1-2b67-4622-a989-a875d0f87985" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/list_process_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/list_process_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/save_process_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/save_process_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/set_process_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/set_process_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/list_process/push.js.erb" afterPath="$PROJECT_DIR$/app/views/list_process/push.js.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/process/index.html.erb" afterPath="$PROJECT_DIR$/app/views/process/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -52,8 +45,8 @@
       <file leaf-file-name="list_process_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/list_process_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="626">
-              <caret line="36" column="20" lean-forward="false" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+            <state relative-caret-position="684">
+              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -550,12 +543,12 @@
       <workItem from="1494668142845" duration="2002000" />
       <workItem from="1494717888830" duration="1389000" />
       <workItem from="1494719786027" duration="1814000" />
-      <workItem from="1494721620294" duration="771000" />
+      <workItem from="1494721620294" duration="818000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33620000" />
+    <option name="totallyTimeSpent" value="33667000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="106" y="39" width="1814" height="1041" extended-state="6" />
@@ -926,8 +919,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/list_process_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="626">
-          <caret line="36" column="20" lean-forward="false" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+        <state relative-caret-position="684">
+          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
         </state>
       </provider>
